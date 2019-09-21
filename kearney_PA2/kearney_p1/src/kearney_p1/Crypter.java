@@ -2,7 +2,7 @@ package kearney_p1;
 
 public class Crypter {
 	// Splits an integer into an array of 4 integers, with the thousandths place at [0], the hundredths place at [1]...
-	public int[] splitInteger(int inData) {
+	public int[] splitInteger(int inData) throws IllegalArgumentException {
 		int[] splitInt = new int[4];
 		
 		if (inData / 10000 != 0) {
