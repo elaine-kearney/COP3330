@@ -3,8 +3,8 @@ import java.util.Scanner;
 import java.lang.Math;
 
 public class ComputerAssistedInstruction {
-    private String[] positiveResponses = {"Very Good!", "Excellent!", "Nice Work!", "Keep up the good work!"};
-    private String[] negativeResponses = {"No. Please try again.", "Wrong. Try once more.",
+    private static String[] positiveResponses = {"Very Good!", "Excellent!", "Nice Work!", "Keep up the good work!"};
+    private static String[] negativeResponses = {"No. Please try again.", "Wrong. Try once more.",
             "Don’t give up!", "No. Keep trying."};
 
     private static double generateQuestion(SecureRandom secureRandom, int upperBound, int operator) {
@@ -44,20 +44,24 @@ public class ComputerAssistedInstruction {
         return answer;
     }
 
-    public static void main(String[] args) {
+    private static void generateResponse(SecureRandom secureRandom, boolean isPositive) {
+        int randomResponse = secureRandom.nextInt(4);
 
+        if(isPositive)
+            System.out.println(positiveResponses[randomResponse]);
+        else
+            System.out.println(negativeResponses[randomResponse]);
+    }
+    public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         int difficultyLevel = 0, questionMode = 0, numCorrect = 0;
         SecureRandom secureRandom = new SecureRandom();
         double input, answer;
 
         while (true) {
-
             questionMode = 0;
             difficultyLevel = 0;
             numCorrect = 0;
-            if (in.nextInt() == 1)
-                break;
 
             while (difficultyLevel < 1 || difficultyLevel > 4) {
                 System.out.print("Please enter a difficulty level (1-4): ");
@@ -85,14 +89,19 @@ public class ComputerAssistedInstruction {
                 else
                     input = in.nextDouble();
 
-                if (input == answer)
+                if (Double.compare(input, answer) == 0) {
                     numCorrect++;
+                    generateResponse(secureRandom, true);
+                } else
+                    generateResponse(secureRandom, false);
             }
 
+            System.out.printf("\nYou got %d questions right and %d question(s) wrong!", numCorrect, 10 - numCorrect);
+            System.out.printf("\nYour final grade was %.2f%%\n", (double)numCorrect * 10.0);
             if(((double)numCorrect / 10.0) < .75)
                 System.out.println("Please ask your teacher for extra help.");
             else
-                System.out.println("Congratulations, you are ready to go to the next level!");
+                System.out.println("Congratulations, you are ready to go to the next level!\n");
 
             System.out.print("Input 0 to quit, otherwise input any number to continue: ");
             if(in.nextInt() == 0)
