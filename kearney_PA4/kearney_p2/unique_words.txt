@@ -1,0 +1,7 @@
+love : 4
+no : 4
+named : 4
+what : 4
+be : 4
+cannot : 4
+has : 4
