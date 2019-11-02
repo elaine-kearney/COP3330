@@ -38,7 +38,7 @@ public class DuplicateCounter {
             }
 
             fileWriter.close();
-            
+
         } catch (IOException e) {
             e.printStackTrace();
         }
