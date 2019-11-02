@@ -14,7 +14,6 @@ public class DuplicateRemover {
 
         try {
             File file = new File(dataFile);
-            System.out.println(file.getCanonicalPath());
             Scanner in = new Scanner(file);
 
             while(in.hasNext())
